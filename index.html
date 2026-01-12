@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>log</title>
+<style>
+body {
+  background:#111;
+  color:#ccc;
+  font-family:sans-serif;
+}
+img {
+  max-width: 300px;
+  margin: 10px;
+}
+</style>
+</head>
+<body>
+<h1>log</h1>
+<h3>百舌呼水雨(mozuko_miu)</h3>
+<div id="gallery"></div>
+
+<script>
+fetch("images/")
+.then(res => res.text())
+.then(text => {
+  const files = [...text.matchAll(/href="([^"]+\.webp)"/g)]
+    .map(m => m[1])
+    .sort()
+    .reverse();
+
+  document.getElementById("gallery").innerHTML =
+    files.map(f => `<img src="images/${f}">`).join("");
+});
+</script>
+
+</body>
+</html>
